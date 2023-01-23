@@ -76,4 +76,21 @@ class CustomerController extends Controller
             return redirect(route('customer.all'))->with('message','Customer Not Found');
         }
    }
+
+
+   public function getDistrict($id){
+
+    $result = DB::table('districts')->where('province_id',$id)->get();
+    return response()->json(['result'=>$result]);
+   
+
+   }
+
+   public function getTown($id){
+
+    $result = DB::table('towns')->where('district_id',$id)->get();
+    return response()->json(['result'=>$result]);
+   
+
+   }
 }

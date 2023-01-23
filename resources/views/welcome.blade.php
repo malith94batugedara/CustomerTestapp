@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <title>Add Customer</title>
 
         <!-- Fonts -->
@@ -55,29 +57,25 @@
               <div class="row">
                   <div class="col-md-4">
                       <label for="nic">Province</label>
-                      <select name="town" class="form-control">
+                      <select name="town" id="provinceid" class="form-control ">
                       <option value="">----Select Province--------</option>
                       @foreach($provinces as $province)
-                           <option value="{{ $province->name }}">{{ $province->name }}</option>
+                           <option class="province"  value="{{ $province->id }}">{{ $province->name }}</option>
                       @endforeach
                       </select>
                   </div>
                   <div class="col-md-4">
                       <label for="dis">District</label>
-                      <select name="town" class="form-control">
-                      <option value="">----Select District--------</option>
-                      @foreach($districts as $district)
-                           <option value="{{ $district->name }}">{{ $district->name }}</option>
-                      @endforeach
+                      <select name="town" id="districtid" class="form-control">
+                      <option value="" >----Select District--------</option>
+
                       </select>
                   </div>
                   <div class="col-md-4">
                       <label for="tow">Town</label>
-                      <select name="town" class="form-control">
-                      <option value="">----Select Town--------</option>
-                      @foreach($towns as $town)
-                           <option value="{{ $town->name }}">{{ $town->name }}</option>
-                      @endforeach
+                      <select name="town" id="townid" class="form-control">
+                      <option value="" >----Select Town--------</option>
+                     
                       </select>
                   </div>
               </div><br/>
@@ -87,6 +85,67 @@
          </div>
       </div>
     </div>
+
+
+   <script>
+   $('#provinceid').change(function(){
+
+
+  var province = $(this).val();
+
+  $.ajax({
+    url:'{{ url("web",) }}' + '/'+ province + '/get',
+    method:'GET',
+    success: function(response){
+        var _html='';
+          $.each(response.result,function(index,row){
+
+         _html+='<option  value="'+row.id+'" >'+row.name+'</option>'
+         
+
+          });
+        $("#districtid").html(_html);
+       
+    },
+        error: function(error){
+        // console.log(error);    
+    }
+    });
+  
+
+});
+
+$('#districtid').change(function(){
+
+
+var district = $(this).val();
+
+$.ajax({
+  url:'{{ url("web",) }}' + '/'+ district + '/get',
+  method:'GET',
+  success: function(response){
+      var _html='';
+        $.each(response.result,function(index,row){
+
+       _html+='<option  value="'+row.id+'" >'+row.name+'<option>'
+       
+
+        });
+      $("#townid").html(_html);
+     
+  },
+      error: function(error){
+      // console.log(error);    
+  }
+  });
+
+
+});
+
+   </script>
+
+
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

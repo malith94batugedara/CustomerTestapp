@@ -25,3 +25,9 @@ Route::get('/editcustomer/{customer_id}',[CustomerController::class,'editCustome
 Route::post('/updatecustomer/{customer_id}',[CustomerController::class,'updateCustomer'])->name('customer.update');
 
 Route::post('/delete-customer', [CustomerController::class, 'deleteCustomer'])->name('customer.delete');
+
+Route::get('web/{id}/get',[CustomerController::class,'getDistrict'])->name('customer.getdistrict');
+
+Route::get('web/{id}/get',[CustomerController::class,'getTown'])->name('customer.gettown');
+
+
