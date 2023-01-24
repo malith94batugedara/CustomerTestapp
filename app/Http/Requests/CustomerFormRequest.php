@@ -25,9 +25,11 @@ class CustomerFormRequest extends FormRequest
     {
         $rules= [
             'name' =>'required|max:255',
-            'mobile' =>'required|max:10',
+            'mobile' =>'required|max:10|digits:10',
             'nic' =>'required',
             'town' =>'required',
+            'province'=>'required',
+            'district'=>'required'
         ];
 
         return $rules;

@@ -57,25 +57,24 @@
               <div class="row">
                   <div class="col-md-4">
                       <label for="nic">Province</label>
-                      <select name="town" id="provinceid" class="form-control ">
+                      <select name="province" id="provinceid" class="form-control ">
                       <option value="">----Select Province--------</option>
                       @foreach($provinces as $province)
-                           <option class="province"  value="{{ $province->id }}">{{ $province->name }}</option>
+                           <option value="{{ $province->id }}">{{ $province->name }}</option>
                       @endforeach
                       </select>
                   </div>
                   <div class="col-md-4">
                       <label for="dis">District</label>
-                      <select name="town" id="districtid" class="form-control">
+                      <select name="district" id="districtid" class="form-control">
                       <option value="" >----Select District--------</option>
-
+                           <!-- <input type="hidden" name="districtid" id="districtid"/> -->
                       </select>
                   </div>
                   <div class="col-md-4">
                       <label for="tow">Town</label>
                       <select name="town" id="townid" class="form-control">
                       <option value="" >----Select Town--------</option>
-                     
                       </select>
                   </div>
               </div><br/>
@@ -120,14 +119,20 @@ $('#districtid').change(function(){
 
 var district = $(this).val();
 
+// console.log(district);
+
 $.ajax({
-  url:'{{ url("web",) }}' + '/'+ district + '/get',
+  url:'{{ url("web",) }}' + '/'+ district + '/gettown',
   method:'GET',
   success: function(response){
+
+    // console.log(response);
       var _html='';
+
+
         $.each(response.result,function(index,row){
 
-       _html+='<option  value="'+row.id+'" >'+row.name+'<option>'
+       _html+='<option  value="'+row.id+'" >'+row.name+'</option>'
        
 
         });

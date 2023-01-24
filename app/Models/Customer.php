@@ -15,7 +15,9 @@ class Customer extends Model
          'name',
          'mobile',
          'nic',
-         'town'
+         'town',
+         'province',
+         'district'
          
     ];
 }

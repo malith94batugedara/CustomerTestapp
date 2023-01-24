@@ -20,6 +20,16 @@ class CustomerController extends Controller
     }
 
     public function saveCustomer(CustomerFormRequest $request){
+
+       
+        $province_name = DB::table('provinces')->where('id',$request->province)->pluck('name');
+       
+        $district_name = DB::table('districts')->where('id',$request->district)->pluck('name');
+
+        $town_name = DB::table('towns')->where('id',$request->town)->pluck('name');
+
+      
+
         $data=$request->validated();
 
         $customer=new Customer;
@@ -27,7 +37,10 @@ class CustomerController extends Controller
         $customer->name=$data['name'];
         $customer->mobile=$data['mobile'];
         $customer->nic=$data['nic'];
-        $customer->town=$data['town'];
+        $customer->town=$town_name;
+        $customer->province=$province_name;
+        $customer->district=$district_name;
+
 
         $customer->save();
 
@@ -88,6 +101,7 @@ class CustomerController extends Controller
 
    public function getTown($id){
 
+    // return $id;
     $result = DB::table('towns')->where('district_id',$id)->get();
     return response()->json(['result'=>$result]);
    

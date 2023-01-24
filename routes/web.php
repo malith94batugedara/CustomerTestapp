@@ -28,6 +28,6 @@ Route::post('/delete-customer', [CustomerController::class, 'deleteCustomer'])->
 
 Route::get('web/{id}/get',[CustomerController::class,'getDistrict'])->name('customer.getdistrict');
 
-Route::get('web/{id}/get',[CustomerController::class,'getTown'])->name('customer.gettown');
+Route::get('web/{id}/gettown',[CustomerController::class,'getTown'])->name('customer.gettown');
 
 
